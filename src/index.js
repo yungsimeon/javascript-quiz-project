@@ -1,28 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
-  /************  HTML ELEMENTS  ************/
-  // View divs
-  const quizView = document.querySelector("#quizView");
+  document.querySelector("#quizView");
   const endView = document.querySelector("#endView");
 
-  // Quiz view elements
   const progressBar = document.querySelector("#progressBar");
   const questionCount = document.querySelector("#questionCount");
   const questionContainer = document.querySelector("#question");
   const choiceContainer = document.querySelector("#choices");
   const nextButton = document.querySelector("#nextButton");
 
-  // End view elements
   const resultContainer = document.querySelector("#result");
 
-  /************  SET VISIBILITY OF VIEWS  ************/
-
-  // Show the quiz view (div#quizView) and hide the end view (div#endView)
   quizView.style.display = "block";
   endView.style.display = "none";
 
-  /************  QUIZ DATA  ************/
-
-  // Array with the quiz questions
   const questions = [
     new Question("What is 2 + 2?", ["3", "4", "5", "6"], "4", 1),
     new Question(
@@ -43,13 +33,9 @@ document.addEventListener("DOMContentLoaded", () => {
       "E = mc^2",
       3
     ),
-    // Add more questions here
   ];
-  const quizDuration = 120; // 120 seconds (2 minutes)
+  const quizDuration = 120;
 
-  /************  QUIZ INSTANCE  ************/
-
-  // Create a new Quiz instance object
   const quiz = new Quiz(questions, quizDuration, quizDuration);
   // Shuffle the quiz questions
   quiz.shuffleQuestions();
@@ -87,31 +73,19 @@ document.addEventListener("DOMContentLoaded", () => {
     clearInterval(timer);
   }
 
-  /************  EVENT LISTENERS  ************/
-
   nextButton.addEventListener("click", nextButtonHandler);
 
-  /************  FUNCTIONS  ************/
-
-  // showQuestion() - Displays the current question and its choices
-  // nextButtonHandler() - Handles the click on the next button
-  // showResults() - Displays the end view and the quiz results
-
   function showQuestion() {
-    // If the quiz has ended, show the results
     if (quiz.hasEnded()) {
       showResults();
       clearTimer();
       return;
     }
 
-    // Clear the previous question text and question choices
     questionContainer.innerText = "";
     choiceContainer.innerHTML = "";
 
-    // Get the current question from the quiz by calling the Quiz class method `getQuestion()`
     const question = quiz.getQuestion();
-    // Shuffle the choices of the current question by calling the method 'shuffleChoices()' on the question object
     question.shuffleChoices();
 
     // YOUR CODE HERE:
@@ -126,10 +100,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     console.log(question.length);
 
-    // 2. Update the green progress bar
-    // Update the green progress bar (div#progressBar) width so that it shows the percentage of questions answered
-
-    // This value is hardcoded as a placeholder
     let progressPercentage =
       (quiz.currentQuestionIndex / quiz.questions.length) * 100;
     const progressBar = document.getElementById("progressBar");
